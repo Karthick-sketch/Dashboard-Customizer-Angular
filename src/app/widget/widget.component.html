@@ -1,58 +1,15 @@
 <div>
-  <div>
-    <button class="add-widget" (click)="openWidgetForm()">Add Widget</button>
-
-    @if(isWidgetFormOpen) {
-    <div class="overlay-style">
-      <div class="popup-style">
-        <div>New Widget</div>
-        <div>
-          <app-form-select
-            title="Select Widget"
-            id="select-widget"
-            [options]="chartTypes"
-          ></app-form-select>
-
-          <app-form-field title="Title" id="widget-title"></app-form-field>
-
-          <div class="static-field-container">
-            @for(data of customData; track data.id; let i = $index) {
-            <div class="static-fields">
-              <div>
-                <label [for]="'label-' + (i + 1)">Label {{ i + 1 }}:</label>
-                <input
-                  type="text"
-                  [id]="'label-' + (i + 1)"
-                  class="static-field"
-                />
-              </div>
-              <div>
-                <label [for]="'data-' + (i + 1)">Data {{ i + 1 }}:</label>
-                <input
-                  type="text"
-                  [id]="'data-' + (i + 1)"
-                  class="static-field"
-                />
-              </div>
-              @if(customData.length > 1) {
-              <button type="button" (click)="deleteCustomDataField(i)">
-                &#10060;
-              </button>
-              }
-            </div>
-            }
-            <button type="button" (click)="addCustomDataField()">+</button>
-          </div>
-
-          <app-form-action-buttons
-            title="Add"
-            (cancelClick)="closeWidgetForm()"
-            (submitClick)="addWidget()"
-          ></app-form-action-buttons>
-        </div>
-      </div>
-    </div>
-    }
+  <app-widget-form (widgetFormData)="addWidget($event)"></app-widget-form>
+  <div class="widget-container">
+    <canvas
+      baseChart
+      [type]="'pie'"
+      [datasets]="pieChartDatasets"
+      [labels]="pieChartLabels"
+      [options]="pieChartOptions"
+      [plugins]="pieChartPlugins"
+      [legend]="pieChartLegend"
+    >
+    </canvas>
   </div>
-  <div class="widget-container"></div>
 </div>
