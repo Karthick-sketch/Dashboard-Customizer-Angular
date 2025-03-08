@@ -1,15 +1,16 @@
 <div>
   <app-widget-form (widgetFormData)="addWidget($event)"></app-widget-form>
   <div class="widget-container">
-    <canvas
-      baseChart
-      [type]="'pie'"
-      [datasets]="pieChartDatasets"
-      [labels]="pieChartLabels"
-      [options]="pieChartOptions"
-      [plugins]="pieChartPlugins"
-      [legend]="pieChartLegend"
-    >
-    </canvas>
+    @for (widget of widgets; track widget.id) {
+      <div class="widget">
+        @if (widget.chartType === chartTypes.PIE) {
+          <app-pie-chart
+            [title]="widget.title"
+            [labels]="widget.labels"
+            [datasets]="widget.datasets"
+          ></app-pie-chart>
+        }
+      </div>
+    }
   </div>
 </div>

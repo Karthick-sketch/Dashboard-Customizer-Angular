@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { ChartTypeModel } from '../../model/chart-type.model';
 import { ChartDataModel } from '../../model/chart-data.model';
 import { FormsModule } from '@angular/forms';
+import { ChartTypes } from '../../enum/chart-types.enum';
 
 @Component({
   selector: 'app-widget-form',
@@ -10,6 +11,7 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule],
 })
 export class WidgetFormComponent {
+  chartType = ChartTypes.PIE;
   widgetTitle = '';
   customData = [{ id: 0, label: '', data: '' }];
 
@@ -24,12 +26,12 @@ export class WidgetFormComponent {
       {
         id: 1,
         label: 'Pie-Chart',
-        value: 'piechart',
+        value: ChartTypes.PIE,
       },
       {
         id: 2,
         label: 'Line-Chart',
-        value: 'linechart',
+        value: ChartTypes.LINE,
       },
     ];
   }
@@ -51,7 +53,11 @@ export class WidgetFormComponent {
       label.push(cd.label);
       data.push(Number(cd.data));
     }
-    this.widgetFormData.emit(new ChartDataModel(this.widgetTitle, label, data));
+    this.widgetFormData.emit(
+      new ChartDataModel(this.widgetTitle, this.chartType, label, [
+        { data: data },
+      ]),
+    );
     this.closeWidgetForm();
   }
 

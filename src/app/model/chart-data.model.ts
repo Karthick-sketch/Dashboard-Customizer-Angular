@@ -1,11 +1,21 @@
+import { ChartTypes } from '../enum/chart-types.enum';
+import { Dataset } from '../type/dataset.type';
+
 export class ChartDataModel {
   title: string;
+  type: ChartTypes;
   label: string[];
-  data: number[];
+  dataset: Dataset[];
 
-  constructor(title: string, label: string[], data: number[]) {
+  constructor(
+    title: string,
+    type: ChartTypes,
+    label: string[],
+    dataset: Dataset[]
+  ) {
     this.title = title;
+    this.type = type;
     this.label = label;
-    this.data = data;
+    this.dataset = dataset;
   }
 }

@@ -1,11 +1,11 @@
-import { OptionModel } from './option.model';
+import { ChartTypes } from '../enum/chart-types.enum';
 
-export class ChartTypeModel implements OptionModel {
+export class ChartTypeModel {
   id: number;
   label: string;
-  value: string;
+  value: ChartTypes;
 
-  constructor(id: number, label: string, value: string) {
+  constructor(id: number, label: string, value: ChartTypes) {
     this.id = id;
     this.label = label;
     this.value = value;

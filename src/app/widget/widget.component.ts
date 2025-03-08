@@ -1,40 +1,38 @@
-import { Component, ViewChild } from '@angular/core';
-import { BaseChartDirective } from 'ng2-charts';
-import { ChartOptions } from 'chart.js';
+import { Component } from '@angular/core';
 import { WidgetFormComponent } from './widget-form/widget-form.component';
 import { ChartDataModel } from '../model/chart-data.model';
+import { ChartTypes } from '../enum/chart-types.enum';
+import { WidgetModel } from '../model/widget.model';
+import { PieChartComponent } from '../chart/pie-chart/pie-chart.component';
 
 @Component({
   selector: 'app-widget',
   templateUrl: './widget.component.html',
   styleUrl: './widget.component.css',
-  imports: [WidgetFormComponent, BaseChartDirective],
+  imports: [WidgetFormComponent, PieChartComponent],
 })
 export class WidgetComponent {
-  pieChartLabels = new Array<string>();
-  pieChartDatasets = new Array<{ data: number[] }>();
-  pieChartOptions: ChartOptions<'pie'> = {
-    responsive: false,
-    plugins: {
-      title: {
-        display: true,
-        text: '',
-        font: {
-          size: 14,
-          weight: 'normal',
-        },
-        color: '#333',
-      },
-    },
-  };
-  pieChartLegend = true;
-  pieChartPlugins = new Array();
+  chartTypes = ChartTypes;
+  widgets = new Array<WidgetModel>();
 
-  constructor() {}
+  constructor() {
+    const title = 'Game Story Votes';
+    const labels = ['The Last of Us', 'Dead Space', 'Max Payne 3'];
+    const datasets = [{ data: [76, 10, 15] }];
+    this.widgets.push(
+      new WidgetModel(title, this.chartTypes.PIE, labels, datasets),
+    );
+    this.widgets.push(
+      new WidgetModel(title, this.chartTypes.PIE, labels, datasets),
+    );
+    this.widgets.push(
+      new WidgetModel(title, this.chartTypes.PIE, labels, datasets),
+    );
+  }
 
   addWidget(widget: ChartDataModel) {
-    this.pieChartOptions.plugins!.title!.text = widget.title;
-    this.pieChartLabels = this.pieChartLabels.concat(widget.label);
-    this.pieChartDatasets.push({ data: widget.data });
+    this.widgets.push(
+      new WidgetModel(widget.title, widget.type, widget.label, widget.dataset),
+    );
   }
 }
