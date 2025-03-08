@@ -1,14 +1,23 @@
 <div>
-  <app-widget-form (widgetFormData)="addWidget($event)"></app-widget-form>
+  <div class="header">
+    <h2>Dashboard</h2>
+    <app-widget-form (widgetFormData)="addWidget($event)"></app-widget-form>
+  </div>
   <div class="widget-container">
     @for (widget of widgets; track widget.id) {
       <div class="widget">
-        @if (widget.chartType === chartTypes.PIE) {
+        @if (widget.chartType == chartTypes.PIE) {
           <app-pie-chart
             [title]="widget.title"
             [labels]="widget.labels"
             [datasets]="widget.datasets"
           ></app-pie-chart>
+        } @else if (widget.chartType == chartTypes.LINE) {
+          <app-line-chart
+            [title]="widget.title"
+            [labels]="widget.labels"
+            [datasets]="widget.datasets"
+          ></app-line-chart>
         }
       </div>
     }

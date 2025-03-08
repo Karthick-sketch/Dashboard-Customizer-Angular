@@ -1,16 +1,26 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header > h2 {
+  margin: 0;
+}
+
 .widget-container {
   min-height: 680px;
   margin-top: 8px;
   display: flex;
   flex-wrap: wrap;
   background-color: #fafafa;
-  background-repeat: repeat-x;
-  border: 1px solid #5a5a5a;
+  border: 1px solid #4b4b4b;
+  border-radius: 4px;
 }
 
 .widget {
-  max-width: 300px;
-  max-height: 300px;
+  max-width: 370px;
+  max-height: 400px;
   display: inline;
   margin-top: 6px;
   margin-left: 6px;
