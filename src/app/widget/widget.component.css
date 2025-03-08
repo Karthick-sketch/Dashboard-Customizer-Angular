@@ -1,0 +1,73 @@
+.add-widget {
+  font-size: 1rem;
+  color: #333;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 0.375rem 1.25rem;
+}
+
+.overlay-style {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-style {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+}
+
+.popup-style > div:first-child {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.static-fields {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.static-fields label {
+  color: #555;
+}
+
+.static-fields button {
+  cursor: pointer;
+  align-self: center;
+  color: #333;
+  padding: 0;
+  margin-top: 0.6rem;
+  margin-right: 0.5rem;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.static-field {
+  width: 70%;
+  color: #444;
+  padding: 0.5rem;
+  border: 1px solid #a9a8a8;
+  border-radius: 4px;
+}
+
+.widget-container {
+  min-height: 680px;
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #fafafa;
+  background-repeat: repeat-x;
+  border: 1px solid #5a5a5a;
+}
