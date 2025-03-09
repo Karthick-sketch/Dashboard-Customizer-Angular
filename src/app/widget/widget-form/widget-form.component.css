@@ -1,13 +1,3 @@
-.add-widget {
-  font-size: 1rem;
-  color: #333;
-  cursor: pointer;
-  background-color: transparent;
-  border: 1px solid #555;
-  border-radius: 4px;
-  padding: 0.375rem 1.25rem;
-}
-
 .overlay-style {
   position: fixed;
   top: 0;
@@ -30,6 +20,14 @@
 .popup-style > div:first-child {
   font-size: 1.25rem;
   font-weight: bold;
+}
+
+.static-field-container > button {
+  margin-top: 6px;
+  padding: 0;
+  border-width: 0;
+  border-color: transparent;
+  background-color: transparent;
 }
 
 .static-fields {
@@ -62,8 +60,7 @@
   border-radius: 4px;
 }
 
-.form-section,
-.form-buttons-container {
+.form-section {
   margin-top: 1rem;
 }
 
@@ -92,23 +89,5 @@
 
 .form-buttons-container {
   float: right;
-}
-
-.form-submit {
-  color: white;
-  cursor: pointer;
-  background-color: #48bb78;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  padding: 0.375rem 1.25rem;
-}
-
-.form-cancel {
-  color: #333;
-  cursor: pointer;
-  background-color: transparent;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  padding: 0.375rem 1.25rem;
-  margin-right: 0.5rem;
+  margin-top: 1rem;
 }

@@ -1,5 +1,5 @@
 <div>
-  <button class="add-widget" (click)="openWidgetForm()">Add Widget</button>
+  <button class="button-primary" (click)="openWidgetForm()">Add Widget</button>
 
   @if (isWidgetFormOpen) {
     <div class="overlay-style">
@@ -27,7 +27,7 @@
               type="text"
               id="widget-title"
               class="form-input"
-              [(ngModel)]="widgetTitle"
+              [(ngModel)]="title"
             />
           </div>
 
@@ -59,14 +59,16 @@
                 }
               </div>
             }
-            <button type="button" (click)="addCustomDataField()">+</button>
+            <button type="button" (click)="addCustomDataField()">
+              <img src="plus-circle.svg" alt="plus-circle" />
+            </button>
           </div>
 
           <div class="form-buttons-container">
-            <button class="form-cancel" (click)="closeWidgetForm()">
+            <button class="button-cancel" (click)="closeWidgetForm()">
               Cancel
             </button>
-            <button class="form-submit" (click)="addWidget()">Add</button>
+            <button class="button-primary" (click)="addWidget()">Add</button>
           </div>
         </div>
       </div>

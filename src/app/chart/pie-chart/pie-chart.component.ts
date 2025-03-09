@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartOptions } from 'chart.js';
-import { ChartDataModel } from '../../model/chart-data.model';
 import { Dataset } from '../../type/dataset.type';
 
 @Component({

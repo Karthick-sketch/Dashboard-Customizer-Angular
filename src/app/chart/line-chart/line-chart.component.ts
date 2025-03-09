@@ -36,7 +36,6 @@ export class LineChartComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    console.log(this.datasets);
     this.chartOptions.plugins!.title!.text = this.title;
     this.data.labels = this.data.labels?.concat(this.labels);
     this.data.datasets = this.data.datasets?.concat(this.datasets);
@@ -47,6 +46,5 @@ export class LineChartComponent implements OnInit {
       dataset.borderColor = 'black';
       dataset.backgroundColor = 'rgba(0,255,0,0.3)';
     });
-    console.log(this.data);
   }
 }

@@ -2,7 +2,7 @@ import { ChartTypes } from '../enum/chart-types.enum';
 import { Dataset } from '../type/dataset.type';
 
 export class WidgetModel {
-  id?: number;
+  id?: string;
   title: string;
   chartType: ChartTypes;
   labels: string[];
@@ -12,7 +12,7 @@ export class WidgetModel {
     title: string,
     chartType: ChartTypes,
     labels: string[],
-    datasets: Dataset[]
+    datasets: Dataset[],
   ) {
     this.title = title;
     this.chartType = chartType;

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { ChartTypeModel } from '../../model/chart-type.model';
-import { ChartDataModel } from '../../model/chart-data.model';
 import { FormsModule } from '@angular/forms';
 import { ChartTypes } from '../../enum/chart-types.enum';
+import { ChartTypeModel } from '../../model/chart-type.model';
+import { WidgetModel } from '../../model/widget.model';
 
 @Component({
   selector: 'app-widget-form',
@@ -12,10 +12,10 @@ import { ChartTypes } from '../../enum/chart-types.enum';
 })
 export class WidgetFormComponent {
   chartType = ChartTypes.PIE;
-  widgetTitle = '';
+  title = '';
   customData = [{ id: 0, label: '', data: '' }];
 
-  @Output() widgetFormData = new EventEmitter<ChartDataModel>();
+  @Output() widgetFormData = new EventEmitter<WidgetModel>();
 
   isWidgetFormOpen: boolean;
   chartTypes: ChartTypeModel[];
@@ -47,16 +47,14 @@ export class WidgetFormComponent {
   }
 
   addWidget() {
-    const label = new Array<string>();
+    const labels = new Array<string>();
     const data = new Array<number>();
     for (const cd of this.customData) {
-      label.push(cd.label);
+      labels.push(cd.label);
       data.push(Number(cd.data));
     }
     this.widgetFormData.emit(
-      new ChartDataModel(this.widgetTitle, this.chartType, label, [
-        { data: data },
-      ]),
+      new WidgetModel(this.title, this.chartType, labels, [{ data: data }]),
     );
     this.closeWidgetForm();
   }
