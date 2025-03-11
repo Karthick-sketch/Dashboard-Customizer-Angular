@@ -6,6 +6,16 @@
   <div class="widget-container">
     @for (widget of widgets; track widget.id) {
       <div class="widget">
+        <button type="button" (click)="clickOption()">
+          <img src="three-dots.svg" alt="three-dots" />
+        </button>
+        @if (isOptionClicked) {
+          <div class="options">
+            <button type="button">Preview</button>
+            <button type="button">Edit</button>
+            <button type="button">Delete</button>
+          </div>
+        }
         @if (widget.chartType == chartTypes.PIE) {
           <app-pie-chart
             [title]="widget.title"

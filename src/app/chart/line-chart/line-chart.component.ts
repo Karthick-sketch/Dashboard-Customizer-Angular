@@ -39,12 +39,5 @@ export class LineChartComponent implements OnInit {
     this.chartOptions.plugins!.title!.text = this.title;
     this.data.labels = this.data.labels?.concat(this.labels);
     this.data.datasets = this.data.datasets?.concat(this.datasets);
-    this.data.datasets.forEach((dataset) => {
-      dataset.label = 'Series B';
-      dataset.fill = true;
-      dataset.tension = 0.5;
-      dataset.borderColor = 'black';
-      dataset.backgroundColor = 'rgba(0,255,0,0.3)';
-    });
   }
 }
