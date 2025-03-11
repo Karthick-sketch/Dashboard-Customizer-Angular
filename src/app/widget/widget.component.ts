@@ -15,17 +15,10 @@ import { WidgetService } from './widget.service';
 export class WidgetComponent implements OnInit {
   chartTypes = ChartTypes;
   widgets = new Array<WidgetModel>();
-  isOptionClicked = false;
+  optionClickedWidget = '';
+  widgetToEdit?: WidgetModel;
 
-  constructor(private widgetService: WidgetService) {
-    const title = 'Game Story Votes';
-    const labels = ['The Last of Us', 'Dead Space', 'Max Payne 3'];
-    const datasets = [{ data: [76, 10, 15] }];
-    this.widgets.push(
-      new WidgetModel(title, this.chartTypes.PIE, labels, datasets),
-      new WidgetModel(title, this.chartTypes.PIE, labels, datasets),
-    );
-  }
+  constructor(private widgetService: WidgetService) {}
 
   ngOnInit() {
     this.widgetService.getWidgets().subscribe((widgetModels) => {
@@ -34,12 +27,30 @@ export class WidgetComponent implements OnInit {
   }
 
   addWidget(widget: WidgetModel) {
-    this.widgetService.createWidget(widget).subscribe((widgetModel) => {
-      this.widgets.push(widgetModel);
-    });
+    if (this.widgetToEdit) {
+      this.widgetService.updateWidget(widget).subscribe((widgetModel) => {
+        this.widgets[this.widgets.indexOf(widget)] = widgetModel;
+      });
+    } else {
+      this.widgetService.createWidget(widget).subscribe((widgetModel) => {
+        this.widgets.push(widgetModel);
+      });
+    }
   }
 
-  clickOption() {
-    this.isOptionClicked = !this.isOptionClicked;
+  clickOption(id?: string) {
+    this.optionClickedWidget = id && id !== this.optionClickedWidget ? id : '';
+  }
+
+  editWidget(widget: WidgetModel) {
+    this.widgetToEdit = widget;
+  }
+
+  deleteWidget(widget: WidgetModel) {
+    if (widget.id) {
+      this.widgetService.deleteWidget(widget.id).subscribe(() => {
+        this.widgets.splice(this.widgets.indexOf(widget), 1);
+      });
+    }
   }
 }

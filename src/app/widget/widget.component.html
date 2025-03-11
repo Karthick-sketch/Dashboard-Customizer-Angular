@@ -1,19 +1,22 @@
 <div>
   <div class="header">
     <h2>Dashboard</h2>
-    <app-widget-form (widgetFormData)="addWidget($event)"></app-widget-form>
+    <app-widget-form
+      [widget]="widgetToEdit"
+      (widgetFormData)="addWidget($event)"
+    ></app-widget-form>
   </div>
   <div class="widget-container">
     @for (widget of widgets; track widget.id) {
       <div class="widget">
-        <button type="button" (click)="clickOption()">
+        <button type="button" (click)="clickOption(widget.id)">
           <img src="three-dots.svg" alt="three-dots" />
         </button>
-        @if (isOptionClicked) {
+        @if (optionClickedWidget === widget.id) {
           <div class="options">
             <button type="button">Preview</button>
-            <button type="button">Edit</button>
-            <button type="button">Delete</button>
+            <button type="button" (click)="editWidget(widget)">Edit</button>
+            <button type="button" (click)="deleteWidget(widget)">Delete</button>
           </div>
         }
         @if (widget.chartType == chartTypes.PIE) {

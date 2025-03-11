@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ChartTypes } from '../../enum/chart-types.enum';
 import { ChartTypeModel } from '../../model/chart-type.model';
@@ -10,10 +17,12 @@ import { WidgetModel } from '../../model/widget.model';
   styleUrl: './widget-form.component.css',
   imports: [FormsModule],
 })
-export class WidgetFormComponent {
-  chartType = ChartTypes.PIE;
+export class WidgetFormComponent implements OnChanges {
   title = '';
+  chartType = ChartTypes.PIE;
   customData = [{ id: 0, label: '', data: '' }];
+
+  @Input() widget?: WidgetModel;
 
   @Output() widgetFormData = new EventEmitter<WidgetModel>();
 
@@ -34,6 +43,28 @@ export class WidgetFormComponent {
         value: ChartTypes.LINE,
       },
     ];
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['widget']) {
+      this.widget = changes['widget'].currentValue;
+      if (this.widget) {
+        this.title = this.widget.title;
+        this.chartType = this.widget.chartType;
+
+        let labels = this.widget.labels;
+        let data = this.widget.datasets[0].data;
+        this.customData = [];
+        for (let i = 0; i < this.widget.labels.length; i++) {
+          this.customData.push({
+            id: i,
+            label: labels[i],
+            data: String(data[i]),
+          });
+        }
+        this.openWidgetForm();
+      }
+    }
   }
 
   openWidgetForm() {

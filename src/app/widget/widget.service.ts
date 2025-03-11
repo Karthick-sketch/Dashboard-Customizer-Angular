@@ -15,4 +15,12 @@ export class WidgetService {
   createWidget(widget: WidgetModel) {
     return this.http.post<WidgetModel>('/widget', widget);
   }
+
+  updateWidget(widget: WidgetModel) {
+    return this.http.patch<WidgetModel>('/widget' + widget.id, widget);
+  }
+
+  deleteWidget(id: string) {
+    return this.http.delete<void>('/widget/' + id);
+  }
 }
