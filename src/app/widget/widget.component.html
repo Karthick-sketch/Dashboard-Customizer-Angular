@@ -31,19 +31,7 @@
             <button type="button" (click)="deleteWidget(widget)">Delete</button>
           </div>
         }
-        @if (widget.chartType == chartTypes.PIE) {
-          <app-pie-chart
-            [title]="widget.title"
-            [labels]="widget.labels"
-            [datasets]="widget.datasets"
-          ></app-pie-chart>
-        } @else if (widget.chartType == chartTypes.LINE) {
-          <app-line-chart
-            [title]="widget.title"
-            [labels]="widget.labels"
-            [datasets]="widget.datasets"
-          ></app-line-chart>
-        }
+        <app-chart [widget]="widget"></app-chart>
       </div>
     }
   </div>

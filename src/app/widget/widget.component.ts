@@ -2,15 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { WidgetFormComponent } from './widget-form/widget-form.component';
 import { ChartTypes } from '../enum/chart-types.enum';
 import { WidgetModel } from '../model/widget.model';
-import { PieChartComponent } from '../chart/pie-chart/pie-chart.component';
-import { LineChartComponent } from '../chart/line-chart/line-chart.component';
 import { WidgetService } from './widget.service';
+import { ChartComponent } from '../chart/chart.component';
 
 @Component({
   selector: 'app-widget',
   templateUrl: './widget.component.html',
   styleUrl: './widget.component.css',
-  imports: [WidgetFormComponent, PieChartComponent, LineChartComponent],
+  imports: [WidgetFormComponent, ChartComponent],
 })
 export class WidgetComponent implements OnInit {
   chartTypes = ChartTypes;
