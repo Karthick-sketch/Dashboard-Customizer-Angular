@@ -11,7 +11,7 @@
       ></app-widget-form>
     }
   </div>
-  @if (isEditable) {
+  @if (widgetToEdit) {
     <app-widget-form
       [widget]="widgetToEdit"
       (widgetFormData)="addWidget($event)"

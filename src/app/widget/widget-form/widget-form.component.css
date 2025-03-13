@@ -2,23 +2,33 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1;
 }
 
 .popup-style {
+  display: flex;
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  width: 300px;
+  width: 600px;
 }
 
-.popup-style > div:first-child {
+.widget-container {
+  min-width: 400px;
+  max-width: 400px;
+  margin-right: 10px;
+  background-color: #f7f7f7;
+  border: 1px solid #555;
+  border-radius: 6px;
+}
+
+.form-container > div:first-child {
   font-size: 1.25rem;
   font-weight: bold;
 }

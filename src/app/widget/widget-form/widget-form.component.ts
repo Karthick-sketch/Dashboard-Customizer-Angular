@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { ChartTypes } from '../../enum/chart-types.enum';
 import { ChartTypeModel } from '../../model/chart-type.model';
 import { WidgetModel } from '../../model/widget.model';
+import { ChartComponent } from '../../chart/chart.component';
 
 type CustomData = {
   id: number;
@@ -14,15 +15,13 @@ type CustomData = {
   selector: 'app-widget-form',
   templateUrl: './widget-form.component.html',
   styleUrl: './widget-form.component.css',
-  imports: [FormsModule],
+  imports: [FormsModule, ChartComponent],
 })
 export class WidgetFormComponent implements OnInit {
-  title!: string;
-  chartType!: ChartTypes;
   customData!: CustomData[];
   chartTypes: ChartTypeModel[];
 
-  @Input() widget?: WidgetModel;
+  @Input() widget!: WidgetModel;
 
   @Output() widgetFormData = new EventEmitter<WidgetModel>();
   @Output() widgetFormClose = new EventEmitter<void>();
@@ -44,15 +43,11 @@ export class WidgetFormComponent implements OnInit {
   }
 
   private initialize() {
-    this.title = '';
-    this.chartType = ChartTypes.PIE;
     this.customData = [{ id: 0, label: '', data: 0 }];
   }
 
   ngOnInit() {
     if (this.widget) {
-      this.title = this.widget.title;
-      this.chartType = this.widget.chartType;
       let data = this.widget.datasets[0].data;
       this.customData = this.widget.labels.map((label, i) => {
         return {
@@ -61,6 +56,8 @@ export class WidgetFormComponent implements OnInit {
           data: data[i],
         };
       });
+    } else {
+      this.widget = new WidgetModel();
     }
   }
 
@@ -70,20 +67,7 @@ export class WidgetFormComponent implements OnInit {
   }
 
   addWidget() {
-    const labels = new Array<string>();
-    const data = new Array<number>();
-    for (const cd of this.customData) {
-      labels.push(cd.label);
-      data.push(cd.data);
-    }
-    if (this.widget) {
-      this.widget.set(this.title, this.chartType, labels, [{ data: data }]);
-      this.widgetFormData.emit(this.widget);
-    } else {
-      this.widgetFormData.emit(
-        new WidgetModel(this.title, this.chartType, labels, [{ data: data }]),
-      );
-    }
+    this.widgetFormData.emit(this.widget);
     this.closeWidgetForm();
   }
 
@@ -95,5 +79,28 @@ export class WidgetFormComponent implements OnInit {
     if (this.customData.length > 1) {
       this.customData.splice(index, 1);
     }
+  }
+
+  changeLabel() {
+    this.customData.forEach((cd, i) => {
+      try {
+        if (i < this.widget.labels.length) {
+          this.widget.labels[i] = cd.label;
+        } else {
+          this.widget.labels.push(cd.label);
+        }
+      } catch (error) {
+        console.log(this.widget.labels);
+      }
+    });
+    this.widget.labels = [...this.widget.labels];
+  }
+
+  changeData() {
+    const data = new Array<number>();
+    for (const cd of this.customData) {
+      data.push(cd.data);
+    }
+    this.widget.datasets = [{ data: data }];
   }
 }

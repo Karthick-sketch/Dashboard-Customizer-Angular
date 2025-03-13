@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartOptions } from 'chart.js';
 import { Dataset } from '../../type/dataset.type';
@@ -8,7 +14,7 @@ import { Dataset } from '../../type/dataset.type';
   templateUrl: './pie-chart.component.html',
   imports: [BaseChartDirective],
 })
-export class PieChartComponent implements OnInit {
+export class PieChartComponent implements OnInit, OnChanges {
   @Input() title!: string;
   @Input() labels!: string[];
   @Input() datasets!: Dataset[];
@@ -34,5 +40,18 @@ export class PieChartComponent implements OnInit {
 
   ngOnInit(): void {
     this.chartOptions.plugins!.title!.text = this.title;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['title']) {
+      const text = changes['title'].currentValue;
+      this.chartOptions = {
+        ...this.chartOptions,
+        plugins: {
+          ...this.chartOptions.plugins?.title,
+          title: { ...this.chartOptions.plugins?.title, text },
+        },
+      };
+    }
   }
 }

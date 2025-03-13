@@ -8,24 +8,10 @@ export class WidgetModel {
   labels!: string[];
   datasets!: Dataset[];
 
-  constructor(
-    title: string,
-    chartType: ChartTypes,
-    labels: string[],
-    datasets: Dataset[],
-  ) {
-    this.set(title, chartType, labels, datasets);
-  }
-
-  set(
-    title: string,
-    chartType: ChartTypes,
-    labels: string[],
-    datasets: Dataset[],
-  ) {
-    this.title = title;
-    this.chartType = chartType;
-    this.labels = labels;
-    this.datasets = datasets;
+  constructor() {
+    this.title = '';
+    this.chartType = ChartTypes.PIE;
+    this.labels = [];
+    this.datasets = [];
   }
 }
