@@ -5,12 +5,14 @@ import { WidgetModel } from '../model/widget.model';
 import { PieChartComponent } from '../chart/pie-chart/pie-chart.component';
 import { LineChartComponent } from '../chart/line-chart/line-chart.component';
 import { WidgetService } from './widget.service';
+import { WidgetPreviewComponent } from './widget-preview/widget-preview.component';
+import { ChartComponent } from '../chart/chart.component';
 
 @Component({
   selector: 'app-widget',
   templateUrl: './widget.component.html',
   styleUrl: './widget.component.css',
-  imports: [WidgetFormComponent, PieChartComponent, LineChartComponent],
+  imports: [WidgetFormComponent, WidgetPreviewComponent, ChartComponent],
 })
 export class WidgetComponent implements OnInit {
   chartTypes = ChartTypes;
@@ -18,7 +20,7 @@ export class WidgetComponent implements OnInit {
   optionClickedWidget = '';
   widgetToEdit?: WidgetModel;
   isWidgetFormOpen = false;
-  isEditable = false;
+  previewWidget?: WidgetModel;
 
   constructor(private widgetService: WidgetService) {}
 
@@ -34,7 +36,11 @@ export class WidgetComponent implements OnInit {
 
   closeWidgetForm() {
     this.isWidgetFormOpen = false;
-    this.isEditable = false;
+    this.widgetToEdit = undefined;
+  }
+
+  closePreview() {
+    this.previewWidget = undefined;
   }
 
   addWidget(widget: WidgetModel) {
@@ -55,7 +61,6 @@ export class WidgetComponent implements OnInit {
 
   editWidget(widget: WidgetModel) {
     this.widgetToEdit = widget;
-    this.isEditable = true;
   }
 
   deleteWidget(widget: WidgetModel) {
@@ -64,5 +69,9 @@ export class WidgetComponent implements OnInit {
         this.widgets.splice(this.widgets.indexOf(widget), 1);
       });
     }
+  }
+
+  openPreview(widget: WidgetModel) {
+    this.previewWidget = widget;
   }
 }

@@ -11,12 +11,18 @@
       ></app-widget-form>
     }
   </div>
-  @if (isEditable) {
+  @if (widgetToEdit) {
     <app-widget-form
       [widget]="widgetToEdit"
       (widgetFormData)="addWidget($event)"
       (widgetFormClose)="closeWidgetForm()"
     ></app-widget-form>
+  }
+  @if (previewWidget) {
+    <app-widget-preview
+      [widget]="previewWidget"
+      (previewClose)="closePreview()"
+    ></app-widget-preview>
   }
   <div class="widget-container">
     @for (widget of widgets; track widget.id) {
@@ -26,24 +32,12 @@
         </button>
         @if (optionClickedWidget === widget.id) {
           <div class="options">
-            <button type="button">Preview</button>
+            <button type="button" (click)="openPreview(widget)">Preview</button>
             <button type="button" (click)="editWidget(widget)">Edit</button>
             <button type="button" (click)="deleteWidget(widget)">Delete</button>
           </div>
         }
-        @if (widget.chartType == chartTypes.PIE) {
-          <app-pie-chart
-            [title]="widget.title"
-            [labels]="widget.labels"
-            [datasets]="widget.datasets"
-          ></app-pie-chart>
-        } @else if (widget.chartType == chartTypes.LINE) {
-          <app-line-chart
-            [title]="widget.title"
-            [labels]="widget.labels"
-            [datasets]="widget.datasets"
-          ></app-line-chart>
-        }
+        <app-chart [widget]="widget"></app-chart>
       </div>
     }
   </div>

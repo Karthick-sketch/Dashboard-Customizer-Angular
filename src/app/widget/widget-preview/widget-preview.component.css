@@ -1,0 +1,42 @@
+.overlay-style {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.popup-style {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 700px;
+  height: 500px;
+}
+
+.popup-style > div:first-child > h2 {
+  margin: 0;
+}
+
+.popup-style > div:first-child > button {
+  float: right;
+  cursor: pointer;
+  border-width: 0;
+  background-color: transparent;
+}
+
+.popup-style > div:first-child {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-style > div:last-child {
+  margin-top: 16px;
+  padding: 0 6px 6px 6px;
+  border: 1px solid #555;
+}
