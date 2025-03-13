@@ -1,79 +1,67 @@
-<div>
-  <button type="button" class="button-primary" (click)="openWidgetForm()">
-    Add Widget
-  </button>
+<div class="overlay-style">
+  <div class="popup-style">
+    <div>New Widget</div>
+    <div>
+      <div class="form-section">
+        <label for="select-widget" class="form-label">Select Widget:</label>
+        <select id="select-widget" class="form-select" [(ngModel)]="chartType">
+          @for (chartType of chartTypes; track chartType.id) {
+            <option [value]="chartType.value">
+              {{ chartType.label }}
+            </option>
+          }
+        </select>
+      </div>
 
-  @if (isWidgetFormOpen) {
-    <div class="overlay-style">
-      <div class="popup-style">
-        <div>New Widget</div>
-        <div>
-          <div class="form-section">
-            <label for="select-widget" class="form-label">Select Widget:</label>
-            <select
-              id="select-widget"
-              class="form-select"
-              [(ngModel)]="chartType"
-            >
-              @for (chartType of chartTypes; track chartType.id) {
-                <option [value]="chartType.value">
-                  {{ chartType.label }}
-                </option>
-              }
-            </select>
-          </div>
+      <div class="form-section">
+        <label for="widget-title" class="form-label">Title:</label>
+        <input
+          type="text"
+          id="widget-title"
+          class="form-input"
+          [(ngModel)]="title"
+        />
+      </div>
 
-          <div class="form-section">
-            <label for="widget-title" class="form-label">Title:</label>
-            <input
-              type="text"
-              id="widget-title"
-              class="form-input"
-              [(ngModel)]="title"
-            />
-          </div>
-
-          <div class="static-field-container">
-            @for (cd of customData; track cd.id; let i = $index) {
-              <div class="static-fields">
-                <div>
-                  <label [for]="'label-' + (i + 1)">Label {{ i + 1 }}:</label>
-                  <input
-                    type="text"
-                    [id]="'label-' + (i + 1)"
-                    class="static-field"
-                    [(ngModel)]="cd.label"
-                  />
-                </div>
-                <div>
-                  <label [for]="'data-' + (i + 1)">Data {{ i + 1 }}:</label>
-                  <input
-                    type="text"
-                    [id]="'data-' + (i + 1)"
-                    class="static-field"
-                    [(ngModel)]="cd.data"
-                  />
-                </div>
-                @if (customData.length > 1) {
-                  <button type="button" (click)="deleteCustomDataField(i)">
-                    &#10060;
-                  </button>
-                }
-              </div>
+      <div class="static-field-container">
+        @for (cd of customData; track cd.id; let i = $index) {
+          <div class="static-fields">
+            <div>
+              <label [for]="'label-' + (i + 1)">Label {{ i + 1 }}:</label>
+              <input
+                type="text"
+                [id]="'label-' + (i + 1)"
+                class="static-field"
+                [(ngModel)]="cd.label"
+              />
+            </div>
+            <div>
+              <label [for]="'data-' + (i + 1)">Data {{ i + 1 }}:</label>
+              <input
+                type="text"
+                [id]="'data-' + (i + 1)"
+                class="static-field"
+                [(ngModel)]="cd.data"
+              />
+            </div>
+            @if (customData.length > 1) {
+              <button type="button" (click)="deleteCustomDataField(i)">
+                &#10060;
+              </button>
             }
-            <button type="button" (click)="addCustomDataField()">
-              <img src="plus-circle.svg" alt="plus-circle" />
-            </button>
           </div>
+        }
+        <button type="button" (click)="addCustomDataField()">
+          <img src="plus-circle.svg" alt="plus-circle" />
+        </button>
+      </div>
 
-          <div class="form-buttons-container">
-            <button class="button-cancel" (click)="closeWidgetForm()">
-              Cancel
-            </button>
-            <button class="button-primary" (click)="addWidget()">Add</button>
-          </div>
-        </div>
+      <div class="form-buttons-container">
+        <button class="button-cancel" (click)="closeWidgetForm()">
+          Cancel
+        </button>
+        <button class="button-primary" (click)="addWidget()">Add</button>
       </div>
     </div>
-  }
+  </div>
 </div>

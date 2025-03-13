@@ -1,11 +1,23 @@
 <div>
   <div class="header">
     <h2>Dashboard</h2>
+    <button type="button" class="button-primary" (click)="openWidgetForm()">
+      Add Widget
+    </button>
+    @if (isWidgetFormOpen) {
+      <app-widget-form
+        (widgetFormData)="addWidget($event)"
+        (widgetFormClose)="closeWidgetForm()"
+      ></app-widget-form>
+    }
+  </div>
+  @if (isEditable) {
     <app-widget-form
       [widget]="widgetToEdit"
       (widgetFormData)="addWidget($event)"
+      (widgetFormClose)="closeWidgetForm()"
     ></app-widget-form>
-  </div>
+  }
   <div class="widget-container">
     @for (widget of widgets; track widget.id) {
       <div class="widget">

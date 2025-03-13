@@ -1,15 +1,14 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ChartTypes } from '../../enum/chart-types.enum';
 import { ChartTypeModel } from '../../model/chart-type.model';
 import { WidgetModel } from '../../model/widget.model';
+
+type CustomData = {
+  id: number;
+  label: string;
+  data: number;
+};
 
 @Component({
   selector: 'app-widget-form',
@@ -17,64 +16,57 @@ import { WidgetModel } from '../../model/widget.model';
   styleUrl: './widget-form.component.css',
   imports: [FormsModule],
 })
-export class WidgetFormComponent implements OnChanges {
-  title = '';
-  chartType = ChartTypes.PIE;
-  customData = [{ id: 0, label: '', data: '' }];
+export class WidgetFormComponent implements OnInit {
+  title!: string;
+  chartType!: ChartTypes;
+  customData!: CustomData[];
+  chartTypes: ChartTypeModel[];
 
   @Input() widget?: WidgetModel;
 
   @Output() widgetFormData = new EventEmitter<WidgetModel>();
-
-  isWidgetFormOpen: boolean;
-  chartTypes: ChartTypeModel[];
+  @Output() widgetFormClose = new EventEmitter<void>();
 
   constructor() {
-    this.isWidgetFormOpen = false;
+    this.initialize();
     this.chartTypes = [
       {
         id: 1,
-        label: 'Pie-Chart',
+        label: 'Pie',
         value: ChartTypes.PIE,
       },
       {
         id: 2,
-        label: 'Line-Chart',
+        label: 'Line',
         value: ChartTypes.LINE,
       },
     ];
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['widget']) {
-      this.widget = changes['widget'].currentValue;
-      if (this.widget) {
-        this.title = this.widget.title;
-        this.chartType = this.widget.chartType;
+  private initialize() {
+    this.title = '';
+    this.chartType = ChartTypes.PIE;
+    this.customData = [{ id: 0, label: '', data: 0 }];
+  }
 
-        let labels = this.widget.labels;
-        let data = this.widget.datasets[0].data;
-        this.customData = [];
-        for (let i = 0; i < this.widget.labels.length; i++) {
-          this.customData.push({
-            id: i,
-            label: labels[i],
-            data: String(data[i]),
-          });
-        }
-        this.openWidgetForm();
-      }
+  ngOnInit() {
+    if (this.widget) {
+      this.title = this.widget.title;
+      this.chartType = this.widget.chartType;
+      let data = this.widget.datasets[0].data;
+      this.customData = this.widget.labels.map((label, i) => {
+        return {
+          id: i,
+          label: label,
+          data: data[i],
+        };
+      });
     }
   }
 
-  openWidgetForm() {
-    this.isWidgetFormOpen = true;
-  }
-
   closeWidgetForm() {
-    this.customData.length = 0;
-    this.customData = [{ id: 0, label: '', data: '' }];
-    this.isWidgetFormOpen = false;
+    this.initialize();
+    this.widgetFormClose.emit();
   }
 
   addWidget() {
@@ -82,16 +74,21 @@ export class WidgetFormComponent implements OnChanges {
     const data = new Array<number>();
     for (const cd of this.customData) {
       labels.push(cd.label);
-      data.push(Number(cd.data));
+      data.push(cd.data);
     }
-    this.widgetFormData.emit(
-      new WidgetModel(this.title, this.chartType, labels, [{ data: data }]),
-    );
+    if (this.widget) {
+      this.widget.set(this.title, this.chartType, labels, [{ data: data }]);
+      this.widgetFormData.emit(this.widget);
+    } else {
+      this.widgetFormData.emit(
+        new WidgetModel(this.title, this.chartType, labels, [{ data: data }]),
+      );
+    }
     this.closeWidgetForm();
   }
 
   addCustomDataField() {
-    this.customData.push({ id: this.customData.length, label: '', data: '' });
+    this.customData.push({ id: this.customData.length, label: '', data: 0 });
   }
 
   deleteCustomDataField(index: number) {

@@ -17,6 +17,8 @@ export class WidgetComponent implements OnInit {
   widgets = new Array<WidgetModel>();
   optionClickedWidget = '';
   widgetToEdit?: WidgetModel;
+  isWidgetFormOpen = false;
+  isEditable = false;
 
   constructor(private widgetService: WidgetService) {}
 
@@ -24,6 +26,15 @@ export class WidgetComponent implements OnInit {
     this.widgetService.getWidgets().subscribe((widgetModels) => {
       this.widgets = this.widgets.concat(widgetModels);
     });
+  }
+
+  openWidgetForm() {
+    this.isWidgetFormOpen = true;
+  }
+
+  closeWidgetForm() {
+    this.isWidgetFormOpen = false;
+    this.isEditable = false;
   }
 
   addWidget(widget: WidgetModel) {
@@ -44,6 +55,7 @@ export class WidgetComponent implements OnInit {
 
   editWidget(widget: WidgetModel) {
     this.widgetToEdit = widget;
+    this.isEditable = true;
   }
 
   deleteWidget(widget: WidgetModel) {

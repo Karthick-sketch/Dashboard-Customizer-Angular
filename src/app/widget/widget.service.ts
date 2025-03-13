@@ -17,7 +17,7 @@ export class WidgetService {
   }
 
   updateWidget(widget: WidgetModel) {
-    return this.http.patch<WidgetModel>('/widget' + widget.id, widget);
+    return this.http.patch<WidgetModel>('/widget/' + widget.id, widget);
   }
 
   deleteWidget(id: string) {
