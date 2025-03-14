@@ -4,20 +4,22 @@
     <button type="button" class="button-primary" (click)="openWidgetForm()">
       Add Widget
     </button>
+  </div>
+  <div>
     @if (isWidgetFormOpen) {
       <app-widget-form
         (widgetFormData)="addWidget($event)"
         (widgetFormClose)="closeWidgetForm()"
       ></app-widget-form>
     }
+    @if (widgetToEdit) {
+      <app-widget-form
+        [widget]="widgetToEdit"
+        (widgetFormData)="addWidget($event)"
+        (widgetFormClose)="closeWidgetForm()"
+      ></app-widget-form>
+    }
   </div>
-  @if (widgetToEdit) {
-    <app-widget-form
-      [widget]="widgetToEdit"
-      (widgetFormData)="addWidget($event)"
-      (widgetFormClose)="closeWidgetForm()"
-    ></app-widget-form>
-  }
   <div class="widget-container">
     @for (widget of widgets; track widget.id) {
       <div class="widget">

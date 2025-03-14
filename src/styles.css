@@ -1,20 +1,23 @@
-.button-primary {
+.button-primary,
+.button-cancel,
+.button-close {
   font-size: 1rem;
   color: #333;
   cursor: pointer;
   background-color: transparent;
+}
+
+.button-primary {
   border: 1px solid #555;
   border-radius: 4px;
   padding: 0.375rem 1.25rem;
 }
 
 .button-cancel {
-  font-size: 1rem;
-  color: #333;
-  cursor: pointer;
-  background-color: transparent;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  padding: 0.375rem 1.25rem;
-  margin-right: 0.5rem;
+  margin-right: 0.75rem;
+  border-width: 0;
+}
+
+.button-close {
+  border-width: 0;
 }

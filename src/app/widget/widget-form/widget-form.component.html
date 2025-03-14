@@ -1,13 +1,20 @@
 <div class="overlay-style">
   <div class="popup-style">
-    <div class="widget-container">
-      @if (widget) {
-        <app-chart [widget]="widget"></app-chart>
-      }
-    </div>
-    <div class="form-container">
+    <div class="popup-header">
       <div>New Widget</div>
       <div>
+        <button type="button" class="button-close" (click)="closeWidgetForm()">
+          &#10006;
+        </button>
+      </div>
+    </div>
+    <div class="popup-body">
+      <div class="widget-container">
+        @if (widget) {
+          <app-chart [widget]="widget"></app-chart>
+        }
+      </div>
+      <div class="form-container">
         <div class="form-section">
           <label for="select-widget" class="form-label">Select Widget:</label>
           <select

@@ -12,11 +12,25 @@
 }
 
 .popup-style {
-  display: flex;
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  width: 600px;
+  width: 700px;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-header > div:first-child {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.popup-body {
+  display: flex;
+  margin-top: 6px;
 }
 
 .widget-container {
@@ -28,9 +42,17 @@
   border-radius: 6px;
 }
 
-.form-container > div:first-child {
-  font-size: 1.25rem;
-  font-weight: bold;
+.form-container {
+  position: relative;
+}
+
+.static-field-container {
+  min-height: 210px;
+  max-height: 210px;
+  overflow-y: scroll;
+  padding: 6px;
+  border: 1px solid #555;
+  border-radius: 6px;
 }
 
 .static-field-container > button {
@@ -42,7 +64,7 @@
 }
 
 .static-fields {
-  margin-top: 1rem;
+  margin-bottom: 1rem;
   display: flex;
   justify-content: space-between;
 }
@@ -72,7 +94,7 @@
 }
 
 .form-section {
-  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .form-label {
@@ -99,6 +121,7 @@
 }
 
 .form-buttons-container {
-  float: right;
-  margin-top: 1rem;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
