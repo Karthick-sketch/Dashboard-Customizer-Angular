@@ -40,40 +40,75 @@
           />
         </div>
 
-        <div class="static-field-container">
-          @for (cd of customData; track cd.id; let i = $index) {
-            <div class="static-fields">
-              <div>
-                <label [for]="'label-' + (i + 1)">Label {{ i + 1 }}:</label>
-                <input
-                  type="text"
-                  [id]="'label-' + (i + 1)"
-                  class="static-field"
-                  [(ngModel)]="cd.label"
-                  (input)="changeLabel()"
-                />
-              </div>
-              <div>
-                <label [for]="'data-' + (i + 1)">Data {{ i + 1 }}:</label>
-                <input
-                  type="text"
-                  [id]="'data-' + (i + 1)"
-                  class="static-field"
-                  [(ngModel)]="cd.data"
-                  (input)="changeData()"
-                />
-              </div>
-              @if (customData.length > 1) {
-                <button type="button" (click)="deleteCustomDataField(i)">
-                  &#10060;
-                </button>
+        <div>
+          <input
+            type="radio"
+            id="static-data"
+            name="data-preference"
+            value="static"
+            [(ngModel)]="dataPreference"
+          />
+          <label for="static-data">Static Data</label>
+          <input
+            type="radio"
+            id="file-data"
+            name="data-preference"
+            value="file"
+            [(ngModel)]="dataPreference"
+          />
+          <label for="file-data">File Data</label>
+        </div>
+
+        @switch (dataPreference) {
+          @case ("static") {
+            <div class="static-field-container">
+              @for (cd of customData; track cd.id; let i = $index) {
+                <div class="static-fields">
+                  <div>
+                    <label [for]="'label-' + (i + 1)">Label {{ i + 1 }}:</label>
+                    <input
+                      type="text"
+                      [id]="'label-' + (i + 1)"
+                      class="static-field"
+                      [(ngModel)]="cd.label"
+                      (input)="changeLabel()"
+                    />
+                  </div>
+                  <div>
+                    <label [for]="'data-' + (i + 1)">Data {{ i + 1 }}:</label>
+                    <input
+                      type="text"
+                      [id]="'data-' + (i + 1)"
+                      class="static-field"
+                      [(ngModel)]="cd.data"
+                      (input)="changeData()"
+                    />
+                  </div>
+                  @if (customData.length > 1) {
+                    <button type="button" (click)="deleteCustomDataField(i)">
+                      &#10060;
+                    </button>
+                  }
+                </div>
               }
+              <button type="button" (click)="addCustomDataField()">
+                <img src="plus-circle.svg" alt="plus-circle" />
+              </button>
             </div>
           }
-          <button type="button" (click)="addCustomDataField()">
-            <img src="plus-circle.svg" alt="plus-circle" />
-          </button>
-        </div>
+          @case ("file") {
+            <div class="form-section">
+              <label for="select-widget" class="form-label">Select File:</label>
+              <select
+                id="select-widget"
+                class="form-select"
+                [(ngModel)]="filename"
+              >
+                <option value="file">file</option>
+              </select>
+            </div>
+          }
+        }
 
         <div class="form-buttons-container">
           <button class="button-cancel" (click)="closeWidgetForm()">

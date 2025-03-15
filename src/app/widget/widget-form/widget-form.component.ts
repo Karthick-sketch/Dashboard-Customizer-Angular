@@ -4,6 +4,7 @@ import { ChartTypes } from '../../enum/chart-types.enum';
 import { ChartTypeModel } from '../../model/chart-type.model';
 import { WidgetModel } from '../../model/widget.model';
 import { ChartComponent } from '../../chart/chart.component';
+import { FileContent } from '../../model/file-content.model';
 
 type CustomData = {
   id: number;
@@ -18,8 +19,14 @@ type CustomData = {
   imports: [FormsModule, ChartComponent],
 })
 export class WidgetFormComponent implements OnInit {
-  customData!: CustomData[];
   chartTypes: ChartTypeModel[];
+  dataPreference!: string;
+  customData!: CustomData[];
+  filename = 'file';
+  files!: FileContent[];
+  headers!: string[];
+  fileLabelColumn!: string[];
+  fileDataColumn!: string[];
 
   @Input() widget!: WidgetModel;
 
